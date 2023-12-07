@@ -4,7 +4,7 @@ import styles from './AuthLink.module.scss';
 
 const AuthLink = ({ href }: { href: string }) => {
   const isSingUp =
-    href === Routes.SignUp
+    href === Routes.SIGN_UP
       ? { text: "Don't have an account?", label: 'Sing Up' }
       : { text: 'Already have an account?', label: 'Sing In' };
 

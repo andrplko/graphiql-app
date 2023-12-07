@@ -40,7 +40,7 @@ const SignUpForm = () => {
             <Button type="submit" disabled={!isDirty || !isValid}>
               Sing Up
             </Button>
-            <AuthLink href={Routes.SignIn} />
+            <AuthLink href={Routes.SIGN_IN} />
           </>
         )}
       </Form>
