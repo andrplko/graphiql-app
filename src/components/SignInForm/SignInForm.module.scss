@@ -1,0 +1,14 @@
+.container {
+  max-width: 600px;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: $white-color;
+  border: 1px solid $grey-color;
+  border-radius: $border-radius;
+  height: max-content;
+}
+
+.title {
+  text-align: center;
+  margin: 0.5rem;
+}

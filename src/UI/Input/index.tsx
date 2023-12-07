@@ -12,7 +12,7 @@ const Input = ({ id, label, registration, error, ...props }: InputProps) => {
   return (
     <div className={styles.container}>
       <label htmlFor={id} className={styles.label}>
-        {label}
+        <span className={styles.text}>{label}</span>
         <input id={id} {...registration} {...props} className={styles.input} />
       </label>
       <div role="alert" className={styles.error}>
