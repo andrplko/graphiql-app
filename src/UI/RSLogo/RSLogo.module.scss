@@ -1,0 +1,23 @@
+.container {
+  cursor: pointer;
+  @media (hover: hover) {
+    &:hover {
+      color: $purple-color;
+
+      .svg {
+        fill: $purple-color;
+      }
+    }
+  }
+}
+
+.link {
+  display: block;
+}
+
+.svg {
+  fill: $black-color;
+  transition: fill 200ms linear;
+  max-width: 150px;
+  width: 100%;
+}
