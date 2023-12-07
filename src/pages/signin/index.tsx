@@ -1,4 +1,4 @@
-import styles from '../styles/SignInPage.module.scss';
+import styles from '@/styles/SignInPage.module.scss';
 
 const SignInPage = () => {
   return (
