@@ -17,7 +17,7 @@ const onSubmit: SubmitHandler<FormFields> = (data) => console.log(data);
 const SignUpForm = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Sign Up</h1>
+      <h2 className={styles.title}>Sign Up</h2>
       <Form<FormFields> schema={validationSchema} onSubmit={onSubmit}>
         {({ register, formState: { errors, isDirty, isValid } }) => (
           <>
