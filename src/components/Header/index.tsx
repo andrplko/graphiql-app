@@ -6,7 +6,7 @@ const Header = () => {
     <header className={styles.header}>
       <Wrapper>
         <div className={styles.container}>
-          <h1 className={styles.title}>GraphQL App</h1>
+          <h1 className={styles.title}>GraphiQL App</h1>
         </div>
       </Wrapper>
     </header>
