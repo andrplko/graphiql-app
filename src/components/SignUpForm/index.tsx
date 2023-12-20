@@ -1,6 +1,7 @@
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import Form from '../Form';
 import validationSchema from '@/utils/validation/validationSchema';
+import { registerWithEmailAndPassword } from '@/lib/firebase/firebase';
+import Form from '../Form';
 import Input from '@/UI/Input';
 import Button from '@/UI/Button';
 import AuthLink from '@/UI/AuthLink';
@@ -12,7 +13,10 @@ interface FormFields extends FieldValues {
   password: string;
 }
 
-const onSubmit: SubmitHandler<FormFields> = (data) => console.log(data);
+const onSubmit: SubmitHandler<FormFields> = (data) => {
+  const { email, password } = data;
+  registerWithEmailAndPassword(email, password);
+};
 
 const SignUpForm = () => {
   return (
