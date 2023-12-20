@@ -2,10 +2,10 @@
   cursor: pointer;
   @media (hover: hover) {
     &:hover {
-      color: $purple-color;
+      color: $purple-light-color;
 
       .svg {
-        fill: $purple-color;
+        fill: $purple-light-color;
       }
     }
   }

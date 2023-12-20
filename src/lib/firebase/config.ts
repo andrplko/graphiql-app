@@ -14,5 +14,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const firebaseApp =
+const firebaseApp =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+
+export default firebaseApp;

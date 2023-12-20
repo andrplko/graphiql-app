@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import Logo from '../Logo';
-import Wrapper from '../../UI/Wrapper';
+import UserNavigation from '../UserNavigation';
+import Wrapper from '@/UI/Wrapper';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -32,6 +33,7 @@ const Header = () => {
       <Wrapper>
         <div className={styles.container}>
           <Logo />
+          <UserNavigation />
         </div>
       </Wrapper>
     </header>
