@@ -1,22 +1,18 @@
 .container {
   display: flex;
   flex-direction: column;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.label {
-  margin-bottom: 0.2rem;
+  font-size: 1rem;
 }
 
 .text {
+  display: inline-block;
+  margin-bottom: 0.25rem;
   user-select: none;
 }
 
 .input {
   width: 100%;
-  margin-top: 0.5rem;
-  padding: 1.25rem;
+  padding: 0.75rem;
   color: $black-color;
   background-color: $white-color;
   border: 1px solid $grey-color;
@@ -34,6 +30,7 @@
 }
 
 .error {
+  margin-top: 0.25rem;
   height: 1.75rem;
   color: $red-color;
 }
