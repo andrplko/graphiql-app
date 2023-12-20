@@ -1,12 +1,37 @@
-import Wrapper from '../Wrapper';
+import { useEffect, useState } from 'react';
+import classnames from 'classnames';
+import Logo from '../Logo';
+import Wrapper from '../../UI/Wrapper';
 import styles from './Header.module.scss';
 
 const Header = () => {
+  const [isSticky, setIsSticky] = useState(false);
+
+  const headerClassNames = classnames(styles.header, {
+    [styles.sticky]: isSticky,
+  });
+
+  const handleScroll = () => {
+    if (typeof window === 'undefined') {
+      return;
+    } else {
+      setIsSticky(window.scrollY >= 10);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className={styles.header}>
+    <header className={headerClassNames}>
       <Wrapper>
         <div className={styles.container}>
-          <h1 className={styles.title}>GraphiQL App</h1>
+          <Logo />
         </div>
       </Wrapper>
     </header>

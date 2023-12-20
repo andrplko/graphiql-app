@@ -1,5 +1,5 @@
 import RSLogo from '@/UI/RSLogo';
-import Wrapper from '../Wrapper';
+import Wrapper from '../../UI/Wrapper';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
