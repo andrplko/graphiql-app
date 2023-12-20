@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import ErrorBoundary from '../ErrorBoundary';
-import Wrapper from '../Wrapper';
+import Wrapper from '../../UI/Wrapper';
 import { jost } from '@/utils/fonts';
 import styles from './Layout.module.scss';
 
