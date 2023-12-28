@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
   flex: 1;
 }
 
@@ -16,4 +19,16 @@
   background-color: $white-color;
   border: 1px solid $grey-color;
   border-radius: $border-radius;
+}
+
+.editor {
+  flex-direction: column;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 550px;
 }
