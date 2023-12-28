@@ -1,46 +1,80 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import router from 'next/router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ToastContainer } from 'react-toastify';
-import GraphqlExplorer from '@/components/GraphqlExplorer';
 import { Routes } from '@/constants/routes';
 import { auth } from '@/lib/firebase/firebase';
 import useAxiosFetch from '@/hooks/useAxiosFetch';
 import EndpointChanger from '@/components/EndpointChanger';
 import Editor from '@/components/Editor';
+import GraphqlExplorer from '@/components/GraphqlExplorer';
+import DocExplorer from '@/components/DocExplorer';
+import EditorTools from '@/components/EditorTools';
+import parseRequestData from '@/utils/parseRequestData';
+import {
+  Types,
+  initialState,
+  mainPageReducer,
+} from '@/reducers/mainPageReducer';
 import styles from '@/styles/MainPage.module.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MainPage = () => {
-  const [query, setQuery] = useState('');
-  const [endpoint, setEndpoint] = useState('');
-  const [stringifiedData, setStringifiedData] = useState('');
+  const [state, dispatch] = useReducer(mainPageReducer, initialState);
+  const {
+    endpoint,
+    query,
+    variables,
+    headers,
+    parsedVariables,
+    parsedHeaders,
+    stringifiedData,
+  } = state;
 
   const { data, loading } = useAxiosFetch(
     endpoint,
     'post',
-    { query },
-    {
-      'Content-Type': 'application/json',
-    }
+    { query, variables: parsedVariables },
+    parsedHeaders
   );
 
   useEffect(() => {
     if (data) {
-      setStringifiedData(JSON.stringify(data, null, 2));
+      dispatch({
+        type: Types.SET_STRINGIFIED_DATA,
+        payload: JSON.stringify(data, null, 2),
+      });
     } else {
-      setStringifiedData('');
+      dispatch({ type: Types.SET_STRINGIFIED_DATA, payload: '' });
     }
   }, [data]);
 
   const handleEndpointSubmission = (value: string) => {
-    setEndpoint(value);
-    setQuery('');
-    setStringifiedData('');
+    dispatch({ type: Types.SET_ENDPOINT, payload: value });
   };
 
-  const handleUpdateQuery = (value: string) => {
-    setQuery(value);
+  const handleClickExecuteButton = (value: string) => {
+    dispatch({ type: Types.SET_QUERY, payload: value });
+    try {
+      const { parsedHeaders, parsedVariables } = parseRequestData(
+        headers,
+        variables
+      );
+      dispatch({ type: Types.SET_PARSED_HEADERS, payload: parsedHeaders });
+      dispatch({ type: Types.SET_PARSED_VARIABLES, payload: parsedVariables });
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch({ type: Types.SET_STRINGIFIED_DATA, payload: error.message });
+      }
+    }
+  };
+
+  const handleUpdateVariables = (value: string) => {
+    dispatch({ type: Types.SET_VARIABLES, payload: value });
+  };
+
+  const handleUpdateHeaders = (value: string) => {
+    dispatch({ type: Types.SET_HEADERS, payload: value });
   };
 
   useEffect(() => {
@@ -58,7 +92,15 @@ const MainPage = () => {
       <EndpointChanger onSubmitEndpoint={handleEndpointSubmission} />
       <section className={styles.section}>
         <article className={styles.editor}>
-          <Editor onClick={handleUpdateQuery} />
+          <div className={styles.wrapper}>
+            <Editor onClickExecuteButton={handleClickExecuteButton} />
+            <EditorTools
+              variables={variables}
+              headers={headers}
+              onUpdateVariables={handleUpdateVariables}
+              onUpdateHeaders={handleUpdateHeaders}
+            />
+          </div>
         </article>
         <article className={styles.viewer}>
           <GraphqlExplorer
@@ -66,9 +108,13 @@ const MainPage = () => {
             value={stringifiedData}
             editable={false}
             readOnly={true}
+            height="550px"
             basicSetup={{ foldGutter: false }}
           />
         </article>
+      </section>
+      <section className={styles.section}>
+        <DocExplorer endpoint={endpoint} />
       </section>
       <ToastContainer />
     </div>
