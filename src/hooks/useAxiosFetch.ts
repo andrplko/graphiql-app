@@ -1,17 +1,12 @@
-import axios, {
-  AxiosError,
-  AxiosResponse,
-  Method,
-  AxiosHeaderValue,
-} from 'axios';
+import axios, { AxiosError, AxiosResponse, Method, AxiosHeaders } from 'axios';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const useAxiosFetch = (
   url: string,
   method: Method | string,
-  body?: { query: string },
-  headers?: { [key: string]: AxiosHeaderValue }
+  body?: { query: string; variables?: Record<string, unknown> | null },
+  headers?: AxiosHeaders | null
 ) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,7 +23,7 @@ const useAxiosFetch = (
             url,
             method,
             data: body,
-            headers,
+            headers: headers || {},
           });
 
           if (!didCancel) {
@@ -63,7 +58,7 @@ const useAxiosFetch = (
     return () => {
       didCancel = true;
     };
-  }, [url, body?.query]);
+  }, [url, body?.query, body?.variables, headers]);
 
   return { data, loading, error };
 };

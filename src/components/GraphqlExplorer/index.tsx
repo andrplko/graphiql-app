@@ -26,7 +26,6 @@ const GraphqlExplorer = ({ loading, ...props }: GraphqlExplorerProps) => {
   return (
     <div className={styles.container}>
       <CodeMirror
-        height="400px"
         theme={githubLight}
         extensions={[javascript({ jsx: true }), myTheme]}
         basicSetup={{

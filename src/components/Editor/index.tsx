@@ -9,33 +9,34 @@ import isValidSequenceBrackets from '@/utils/isValidSequenceBrackets';
 import styles from './Editor.module.scss';
 
 interface EditorProps {
-  onClick: (value: string) => void;
+  onClickExecuteButton: (value: string) => void;
 }
 
-const Editor = ({ onClick }: EditorProps) => {
+const Editor = ({ onClickExecuteButton }: EditorProps) => {
   const [query, setQuery] = useState('');
   const isValid = isValidSequenceBrackets(query);
 
   const handleClickPrettify = () => {
     if (isValid) {
-      const prettifiedValue = prettifyQuery(query, 2);
+      const prettifiedValue = prettifyQuery(query);
       setQuery(prettifiedValue);
     }
   };
 
   return (
-    <>
+    <div className={styles.container}>
       <GraphqlExplorer
         value={query}
         onChange={(value) => {
           setQuery(value);
         }}
         placeholder={'Type query'}
+        height="390px"
       />
       <div className={styles.wrapper}>
         <Button
           type="button"
-          onClick={() => onClick(query)}
+          onClick={() => onClickExecuteButton(query)}
           className={styles.button}
         >
           <Image
@@ -61,7 +62,7 @@ const Editor = ({ onClick }: EditorProps) => {
           />
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
