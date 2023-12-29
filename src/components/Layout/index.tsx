@@ -11,7 +11,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Head>
-        <title>GraphiQL App</title>
+        <title>GraphiQL</title>
         <meta property="og:title" content="GraphiQL App" key="title" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

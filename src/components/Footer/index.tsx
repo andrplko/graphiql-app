@@ -6,7 +6,19 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <Wrapper>
-        <RSLogo />
+        <div className={styles.container}>
+          <RSLogo />
+          <p className={styles.year}>2023</p>
+          <a
+            href="https://github.com/andrplko"
+            className={styles.github}
+            rel="noreferrer"
+            target="_blank"
+            title="Andrei Paleshka GitHub"
+          >
+            Andrei
+          </a>
+        </div>
       </Wrapper>
     </footer>
   );
