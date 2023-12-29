@@ -1,0 +1,124 @@
+.container {
+  background-color: $white-color;
+  border-radius: $border-radius;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0 1rem;
+  max-width: 768px;
+  padding: 2rem 1rem;
+  user-select: none;
+  width: 100%;
+
+  @media screen and (max-width: 620px) {
+    text-align: center;
+  }
+}
+
+.info {
+  display: flex;
+  gap: 2rem;
+
+  @media screen and (max-width: 620px) {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.photo {
+  border-radius: 50%;
+  margin-left: 1rem;
+  max-height: 200px;
+  max-width: 200px;
+
+  @media screen and (max-width: 620px) {
+    margin-left: 0;
+  }
+
+  @media screen and (max-width: 500px) {
+    max-height: 200px;
+    max-width: 200px;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+
+  @media screen and (max-width: 620px) {
+    align-items: center;
+  }
+}
+
+.name {
+  font-size: 2rem;
+  margin: 0;
+
+  @media screen and (max-width: 672px) {
+    font-size: 1.75rem;
+  }
+}
+
+.role {
+  background-color: rgba(103, 58, 183, 0.2);
+  border-radius: 5px;
+  border-left: 5px solid $purple-light-color;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 0.5rem;
+  width: fit-content;
+}
+
+.github {
+  display: flex;
+  align-items: center;
+  column-gap: 0.25rem;
+  margin-top: 0.5rem;
+
+  & .image {
+    display: block;
+  }
+
+  & .link {
+    color: $blue-color;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    width: max-content;
+
+    @media (hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.contribution {
+  &_title {
+    margin: 0.5rem 0;
+  }
+
+  &_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+
+    @media screen and (max-width: 620px) {
+      justify-content: center;
+    }
+
+    & li {
+      background-color: rgba(33, 150, 243, 0.2);
+      border-radius: 5px;
+      font-size: 0.8rem;
+      padding: 0 0.5rem;
+      border-left: 5px solid $blue-color;
+    }
+  }
+}
