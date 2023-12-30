@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { DevelopersData } from './types';
 import GithubIcon from 'public/github-mark.svg';
+import { useLocaleContext } from '@/context/locales';
 import styles from './TeamMember.module.scss';
 
 interface TeamMemberProps {
@@ -8,15 +9,18 @@ interface TeamMemberProps {
 }
 
 const TeamMember = ({ developer }: TeamMemberProps) => {
-  const { name, role, image, github, contribution } = developer;
+  const { name, image, github } = developer;
+  const {
+    localeData: { welcome_page },
+  } = useLocaleContext();
 
   return (
     <div className={styles.container}>
       <div className={styles.info}>
         <Image src={image} alt={name} className={styles.photo} />
         <div className={styles.details}>
-          <h3 className={styles.name}>{name}</h3>
-          <h4 className={styles.role}>{role}</h4>
+          <h3 className={styles.name}>{welcome_page.team_members.card.name}</h3>
+          <h4 className={styles.role}>{welcome_page.team_members.card.role}</h4>
           <div className={styles.github}>
             <Image
               src={GithubIcon}
@@ -30,15 +34,17 @@ const TeamMember = ({ developer }: TeamMemberProps) => {
               className={styles.link}
               rel="noreferrer"
               target="_blank"
-              title={`${name} GitHub`}
+              title={`${welcome_page.team_members.card.name} GitHub`}
             >
               {github}
             </a>
           </div>
           <div className={styles.contribution}>
-            <h4 className={styles.contribution_title}>Contribution</h4>
+            <h4 className={styles.contribution_title}>
+              {welcome_page.team_members.card.contribution.title}
+            </h4>
             <ul className={styles.contribution_list}>
-              {contribution.map((item) => (
+              {welcome_page.team_members.card.contribution.list.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>

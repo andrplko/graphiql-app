@@ -6,6 +6,7 @@ import PrettifyIcon from 'public/prettify-icon.svg';
 import Button from '@/UI/Button';
 import prettifyQuery from '@/utils/prettifyQuery';
 import isValidSequenceBrackets from '@/utils/isValidSequenceBrackets';
+import { useLocaleContext } from '@/context/locales';
 import styles from './Editor.module.scss';
 
 interface EditorProps {
@@ -13,6 +14,9 @@ interface EditorProps {
 }
 
 const Editor = ({ onClickExecuteButton }: EditorProps) => {
+  const {
+    localeData: { main_page },
+  } = useLocaleContext();
   const [query, setQuery] = useState('');
   const isValid = isValidSequenceBrackets(query);
 
@@ -30,7 +34,7 @@ const Editor = ({ onClickExecuteButton }: EditorProps) => {
         onChange={(value) => {
           setQuery(value);
         }}
-        placeholder={'Type query'}
+        placeholder={main_page.editor.placeholder}
         height="390px"
       />
       <div className={styles.wrapper}>

@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Button from '@/UI/Button';
 import GraphqlExplorer from '../GraphqlExplorer';
 import ChevronIcon from 'public/chevron-icon.svg';
+import { useLocaleContext } from '@/context/locales';
 import styles from './EditorTools.module.scss';
 
 interface EditorToolsProps {
@@ -19,6 +20,9 @@ const EditorTools = ({
   onUpdateVariables,
   onUpdateHeaders,
 }: EditorToolsProps) => {
+  const {
+    localeData: { main_page },
+  } = useLocaleContext();
   const [isOpen, setIsOpen] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState(0);
   const toggleOpen = () => setIsOpen(!isOpen);
@@ -42,7 +46,7 @@ const EditorTools = ({
               [styles.active]: visibleIndex === 0,
             })}
           >
-            Variables
+            {main_page.variables}
           </Button>
           <Button
             type="button"
@@ -51,7 +55,7 @@ const EditorTools = ({
               [styles.active]: visibleIndex === 1,
             })}
           >
-            Headers
+            {main_page.headers}
           </Button>
         </div>
         <Button type="button" onClick={toggleOpen} className={styles.button}>
