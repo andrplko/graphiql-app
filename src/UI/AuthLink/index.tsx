@@ -1,18 +1,33 @@
 import Link from 'next/link';
 import { Routes } from '@/constants/routes';
+import { useLocaleContext } from '../../context/locales/index';
 import styles from './AuthLink.module.scss';
 
-const AuthLink = ({ href }: { href: string }) => {
-  const isSingUp =
+interface AuthLinkProps {
+  href: string;
+}
+
+const AuthLink = ({ href }: AuthLinkProps) => {
+  const {
+    localeData: { sign_in_page, sign_up_page },
+  } = useLocaleContext();
+
+  const isSingUpOrSignIn =
     href === Routes.SIGN_UP
-      ? { text: "Don't have an account?", label: 'Sing Up' }
-      : { text: 'Already have an account?', label: 'Sing In' };
+      ? {
+          text: sign_in_page.auth_link.text,
+          label: sign_in_page.auth_link.label,
+        }
+      : {
+          text: sign_up_page.auth_link.text,
+          label: sign_up_page.auth_link.label,
+        };
 
   return (
     <div className={styles.container}>
-      <span>{isSingUp.text}</span>
+      <span>{isSingUpOrSignIn.text}</span>
       <Link href={href} className={styles.link}>
-        {isSingUp.label}
+        {isSingUpOrSignIn.label}
       </Link>
     </div>
   );

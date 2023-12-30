@@ -4,12 +4,17 @@ import Button from '@/UI/Button';
 import Input from '@/UI/Input';
 import ChangeIcon from '/public/change-icon.svg';
 import styles from './EndpointChanger.module.scss';
+import { useLocaleContext } from '@/context/locales';
 
 interface EndpointChangerProps {
   onSubmitEndpoint: (value: string) => void;
 }
 
 const EndpointChanger = ({ onSubmitEndpoint }: EndpointChangerProps) => {
+  const {
+    localeData: { main_page },
+  } = useLocaleContext();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -27,7 +32,7 @@ const EndpointChanger = ({ onSubmitEndpoint }: EndpointChangerProps) => {
           id="endpoint"
           name="endpoint"
           type="text"
-          placeholder="Type endpoint"
+          placeholder={main_page.endpoint_changer.placeholder}
           className={styles.input}
           errorClassName={styles.error}
         />

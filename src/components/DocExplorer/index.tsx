@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getIntrospectionQuery } from 'graphql';
 import useAxiosFetch from '@/hooks/useAxiosFetch';
 import GraphqlExplorer from '../GraphqlExplorer';
+import { useLocaleContext } from '@/context/locales';
 import styles from './DocExplorer.module.scss';
 
 interface DocExplorerProps {
@@ -9,6 +10,9 @@ interface DocExplorerProps {
 }
 
 const DocExplorer = ({ endpoint }: DocExplorerProps) => {
+  const {
+    localeData: { main_page },
+  } = useLocaleContext();
   const [stringifiedData, setStringifiedData] = useState('');
 
   const { data, loading } = useAxiosFetch(endpoint, 'post', {
@@ -25,7 +29,7 @@ const DocExplorer = ({ endpoint }: DocExplorerProps) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Documentation</h2>
+      <h2 className={styles.title}>{main_page.doc.title}</h2>
       <GraphqlExplorer
         loading={loading}
         value={stringifiedData}
