@@ -7,4 +7,7 @@
 .title {
   margin: 0;
   color: $purple-light-color;
+  @media (max-width: $tablet){
+    font-size: 1rem;
+  }
 }

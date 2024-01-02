@@ -6,7 +6,7 @@ import Button from '@/UI/Button';
 import { useLocaleContext } from '@/context/locales';
 import styles from './AuthButtons.module.scss';
 
-const AuthButtons = () => {
+const AuthButtons = ({ ...rest }) => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const {
@@ -22,7 +22,7 @@ const AuthButtons = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} {...rest}>
       <Button type="button" onClick={() => router.push(Routes.SIGN_IN)}>
         {header.auth_buttons.sign_in}
       </Button>
