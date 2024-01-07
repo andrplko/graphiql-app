@@ -13,11 +13,7 @@ const Header = () => {
   });
 
   const handleScroll = () => {
-    if (typeof window === 'undefined') {
-      return;
-    } else {
-      setIsSticky(window.scrollY >= 10);
-    }
+    setIsSticky(window.scrollY >= 10);
   };
 
   useEffect(() => {

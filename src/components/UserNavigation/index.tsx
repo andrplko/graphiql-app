@@ -22,14 +22,6 @@ const UserNavigation = () => {
   const isWelcomePage = router.pathname === Routes.WELCOME;
   const isMainPage = router.pathname === Routes.MAIN;
 
-  const linkWelcomeClassName = classnames(styles.link, {
-    [styles.activeWelcome]: isWelcomePage,
-  });
-
-  const linkMainClassName = classnames(styles.link, {
-    [styles.activeMain]: isMainPage,
-  });
-
   const handleClickLocalization = () => {
     setLanguage(language === REGIONS.EN ? REGIONS.BEL : REGIONS.EN);
   };
@@ -42,11 +34,23 @@ const UserNavigation = () => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <Link href={Routes.WELCOME} legacyBehavior>
-          <a className={linkWelcomeClassName}>{header.links.welcome}</a>
+          <a
+            className={classnames(styles.link, {
+              [styles.active]: isWelcomePage,
+            })}
+          >
+            {header.links.welcome}
+          </a>
         </Link>
         {user && (
           <Link href={Routes.MAIN} legacyBehavior>
-            <a className={linkMainClassName}>{header.links.main}</a>
+            <a
+              className={classnames(styles.link, {
+                [styles.active]: isMainPage,
+              })}
+            >
+              {header.links.main}
+            </a>
           </Link>
         )}
       </div>

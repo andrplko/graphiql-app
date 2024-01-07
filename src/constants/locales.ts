@@ -139,7 +139,7 @@ const locales = {
           name: 'Андрэй Палешка',
           role: 'Лідар каманды',
           contribution: {
-            title: 'Вклад',
+            title: 'Уклад',
             list: [
               'Налада праекта',
               'Запыты да GraphQL API',
