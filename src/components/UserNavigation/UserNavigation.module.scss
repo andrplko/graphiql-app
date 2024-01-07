@@ -26,8 +26,7 @@
     }
   }
 
-  &.activeMain,
-  &.activeWelcome {
+  &.active {
     color: $blue-color;
     cursor: default;
   }
