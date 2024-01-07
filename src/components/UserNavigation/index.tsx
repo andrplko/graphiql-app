@@ -54,10 +54,12 @@ const UserNavigation = () => {
           </Link>
         )}
       </div>
-      <Button type="button" onClick={handleClickLocalization}>
-        {language}
-      </Button>
-      <AuthButtons />
+      <div className={styles.buttons_wrapper}>
+        <Button type="button" onClick={handleClickLocalization}>
+          {language}
+        </Button>
+        <AuthButtons />
+      </div>
     </div>
   );
 };

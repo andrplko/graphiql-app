@@ -6,10 +6,18 @@
   border: 1px solid $grey-color;
   border-radius: $border-radius;
   height: max-content;
+
+  @media screen and (max-width: 425px) {
+    padding: 1rem;
+  }
 }
 
 .title {
   font-size: 2rem;
   text-align: center;
-  margin: 0.5rem;
+  margin: 1rem;
+
+  @media screen and (max-width: 425px) {
+    font-size: 1.75rem;
+  }
 }
