@@ -14,7 +14,6 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error);
       toast.error(error.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -30,7 +29,6 @@ const registerWithEmailAndPassword = async (
     await createUserWithEmailAndPassword(auth, email, password);
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error);
       toast.error(error.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -43,7 +41,6 @@ const logout = async () => {
     await signOut(auth);
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error);
       toast.error(error.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
