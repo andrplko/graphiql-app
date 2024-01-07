@@ -36,6 +36,7 @@ const Form = <
       noValidate
       onSubmit={methods.handleSubmit(onSubmit)}
       className={styles.form}
+      data-testid="form"
     >
       {children(methods)}
     </form>

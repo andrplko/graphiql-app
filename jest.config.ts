@@ -19,6 +19,7 @@ const config: import('jest').Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testEnvironment: 'jest-environment-jsdom',
   preset: 'ts-jest',
+  collectCoverage: true,
 };
 
 export default createJestConfig(config);
