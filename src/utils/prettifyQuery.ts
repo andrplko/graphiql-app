@@ -11,7 +11,14 @@ const prettifyQuery = (value: string) => {
       }
 
       if (/[()]/g.test(item)) {
-        return item.replace(/\s/g, '').replace(/[:,]/g, '$& ');
+        return item
+          .replace(/\s/g, '')
+          .replace(/[:,]/g, '$& ')
+          .replace(/=/g, ' $& ');
+      }
+
+      if (/:/g.test(item)) {
+        return item.replace(/:/g, '$& ');
       }
 
       if (/^[A-Za-z]+$/.test(item) && /^[A-Za-z|.]+$/.test(array[index + 1])) {
@@ -24,7 +31,7 @@ const prettifyQuery = (value: string) => {
         indentation += indentSize;
         const indent = ' '.repeat(indentation);
         item += `\n${indent}`;
-        item = ' '.repeat(indentSize / indentSize) + item;
+        item = ' '.repeat(1) + item;
 
         return item;
       }
