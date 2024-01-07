@@ -45,7 +45,7 @@ query {
 
   it('should handle inline fragments and variables', () => {
     const query =
-      'query CommentsForPost($postId: ID!) {post(postId: $postId) {title body author comments {...CoreCommentFields}}}';
+      'query CommentsForPost($postId:ID!) {post(postId:$postId) {title body author comments {...CoreCommentFields}}}';
     const prettifiedQuery = prettifyQuery(query);
 
     const expectedPrettifiedQuery = `
@@ -60,6 +60,23 @@ query CommentsForPost($postId: ID!) {
   }
 }
   `.trim();
+
+    expect(prettifiedQuery).toEqual(expectedPrettifiedQuery);
+  });
+
+  it('should add space after colons in the query', () => {
+    const query =
+      'query HeroComparison($first:Int=3){leftComparison:hero(episode:EMPIRE) { id name }}';
+    const prettifiedQuery = prettifyQuery(query);
+
+    const expectedPrettifiedQuery = `
+query HeroComparison($first: Int = 3) {
+  leftComparison: hero(episode: EMPIRE) {
+    id
+    name
+  }
+}
+`.trim();
 
     expect(prettifiedQuery).toEqual(expectedPrettifiedQuery);
   });
