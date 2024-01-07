@@ -27,6 +27,7 @@ const GraphqlExplorer = ({ loading, ...props }: GraphqlExplorerProps) => {
     <div className={styles.container}>
       <CodeMirror
         theme={githubLight}
+        width="100%"
         extensions={[javascript({ jsx: true }), myTheme]}
         basicSetup={{
           autocompletion: false,

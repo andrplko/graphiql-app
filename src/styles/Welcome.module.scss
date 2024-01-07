@@ -40,4 +40,9 @@
     border-left: 5px solid $blue-color;
     text-align: center;
   }
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
 }

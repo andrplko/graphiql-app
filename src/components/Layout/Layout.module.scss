@@ -10,4 +10,8 @@
   flex: 1;
   background-color: $bg-color;
   padding-top: 82px;
+
+  @media screen and (max-width: 768px) {
+    padding-top: 162px;
+  }
 }
