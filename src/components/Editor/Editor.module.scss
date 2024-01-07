@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex: 1;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.button {
+  padding: 0.65rem !important;
+  opacity: 1;
+  background-color: $purple-color !important;
+  border-radius: $border-radius;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: scale(1.02);
+  }
+
+  &:disabled {
+    background-color: $grey-color !important;
+  }
+}
+
+.image {
+  display: block;
+}

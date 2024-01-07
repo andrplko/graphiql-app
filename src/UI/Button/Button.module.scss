@@ -1,0 +1,25 @@
+.button {
+  padding: 0.65rem;
+  text-align: center;
+  color: $white-color;
+  font-size: 1rem;
+  border-radius: $border-radius;
+  background-color: $blue-color;
+  transition: 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $dark-blue-color;
+  }
+
+  &:active {
+    background-color: $dark-blue-color;
+    transform: scale(1.02);
+  }
+
+  &:disabled {
+    background-color: $grey-color;
+    transform: none;
+    cursor: not-allowed;
+  }
+}
