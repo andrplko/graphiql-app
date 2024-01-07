@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Button from '@/UI/Button';
 import Input from '@/UI/Input';
 import ChangeIcon from '/public/change-icon.svg';
-import styles from './EndpointChanger.module.scss';
 import { useLocaleContext } from '@/context/locales';
+import styles from './EndpointChanger.module.scss';
 
 interface EndpointChangerProps {
   onSubmitEndpoint: (value: string) => void;
@@ -20,7 +20,7 @@ const EndpointChanger = ({ onSubmitEndpoint }: EndpointChangerProps) => {
     const formData = new FormData(e.currentTarget);
     const value = formData.get('endpoint');
 
-    if (typeof value === 'string') {
+    if (value && typeof value === 'string') {
       onSubmitEndpoint(value);
     }
   };
