@@ -1,26 +1,16 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import EndpointChanger from '@/components/EndpointChanger';
-
-const mockLocaleContext = {
-  localeData: {
-    main_page: {
-      endpoint_changer: {
-        placeholder: 'Type endpoint',
-      },
-    },
-  },
-};
-
-jest.mock('../context/locales', () => ({
-  ...jest.requireActual('../context/locales'),
-  useLocaleContext: jest.fn(() => mockLocaleContext),
-}));
+import LocaleProvider from '@/context/locales';
 
 describe('EndpointChanger component', () => {
   const onSubmitEndpointMock = jest.fn();
 
   test('renders EndpointChanger component', () => {
-    render(<EndpointChanger onSubmitEndpoint={onSubmitEndpointMock} />);
+    render(
+      <LocaleProvider>
+        <EndpointChanger onSubmitEndpoint={onSubmitEndpointMock} />
+      </LocaleProvider>
+    );
 
     const inputElement = screen.getByPlaceholderText('Type endpoint');
     const buttonElement = screen.getByRole('button');
@@ -30,7 +20,11 @@ describe('EndpointChanger component', () => {
   });
 
   test('submits the form with a valid endpoint', () => {
-    render(<EndpointChanger onSubmitEndpoint={onSubmitEndpointMock} />);
+    render(
+      <LocaleProvider>
+        <EndpointChanger onSubmitEndpoint={onSubmitEndpointMock} />
+      </LocaleProvider>
+    );
 
     const inputElement = screen.getByPlaceholderText('Type endpoint');
     const buttonElement = screen.getByRole('button');
@@ -46,7 +40,11 @@ describe('EndpointChanger component', () => {
   });
 
   test('does not submit the form with an empty endpoint', () => {
-    render(<EndpointChanger onSubmitEndpoint={onSubmitEndpointMock} />);
+    render(
+      <LocaleProvider>
+        <EndpointChanger onSubmitEndpoint={onSubmitEndpointMock} />
+      </LocaleProvider>
+    );
 
     const inputElement = screen.getByPlaceholderText('Type endpoint');
     const buttonElement = screen.getByRole('button');

@@ -1,32 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Layout from '@/components/Layout';
 import { ClassAttributes, ImgHTMLAttributes } from 'react';
-
-const mockLocaleContext = {
-  localeData: {
-    header: {
-      links: {
-        welcome: 'Welcome',
-        main: 'Main',
-      },
-      auth_buttons: {
-        sign_in: 'Sign In',
-        sign_up: 'Sign Up',
-        sing_out: 'Sing Out',
-      },
-    },
-    footer: {
-      team_members: {
-        member: 'Andrei',
-      },
-    },
-  },
-};
-
-jest.mock('../context/locales', () => ({
-  ...jest.requireActual('../context/locales'),
-  useLocaleContext: jest.fn(() => mockLocaleContext),
-}));
+import LocaleProvider from '@/context/locales';
 
 jest.mock('next/router', () => {
   const router = {
@@ -54,9 +29,11 @@ jest.mock('next/image', () => ({
 describe('Layout component', () => {
   it('renders children correctly', () => {
     render(
-      <Layout>
-        <div data-testid="test-child">Test Child</div>
-      </Layout>
+      <LocaleProvider>
+        <Layout>
+          <div data-testid="test-child">Test Child</div>
+        </Layout>
+      </LocaleProvider>
     );
 
     const childElement = screen.getByText('Test Child');
@@ -64,7 +41,11 @@ describe('Layout component', () => {
   });
 
   it('renders logo correctly', () => {
-    render(<Layout />);
+    render(
+      <LocaleProvider>
+        <Layout />
+      </LocaleProvider>
+    );
 
     const titleElement = screen.getByText('GraphiQL');
     const logoIcon = screen.getByAltText('logo');

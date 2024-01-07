@@ -1,23 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import MainPage from '@/pages/main';
-
-const mockLocaleContext = {
-  localeData: {
-    main_page: {
-      endpoint_changer: {
-        placeholder: 'Type endpoint',
-      },
-      editor: {
-        placeholder: 'Type query',
-      },
-      variables: 'Variables',
-      headers: 'Headers',
-      doc: {
-        title: 'Documentation',
-      },
-    },
-  },
-};
+import LocaleProvider from '@/context/locales';
 
 jest.mock('next/router', () => {
   const router = {
@@ -38,14 +21,13 @@ jest.mock('firebase/auth', () => ({
   getAuth: () => jest.fn(),
 }));
 
-jest.mock('../context/locales', () => ({
-  ...jest.requireActual('../context/locales'),
-  useLocaleContext: jest.fn(() => mockLocaleContext),
-}));
-
 describe('MainPage component', () => {
   it('handles endpoint submission correctly', () => {
-    render(<MainPage />);
+    render(
+      <LocaleProvider>
+        <MainPage />
+      </LocaleProvider>
+    );
 
     const endpointInput = screen.getByPlaceholderText('Type endpoint');
     const submitButton = screen.getByAltText('change icon');

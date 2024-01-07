@@ -1,49 +1,19 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SignInForm from '@/components/SignInForm';
 import { logInWithEmailAndPassword } from '@/lib/firebase/firebase';
-
-const mockLocaleContext = {
-  localeData: {
-    sign_in_page: {
-      title: 'Sign In',
-      email: 'Email',
-      password: 'Password',
-      button: 'Sign In',
-      auth_link: {
-        text: "Don't have an account?",
-        label: 'Sign Up',
-      },
-    },
-    validation: {
-      email: {
-        required: 'Email is required',
-        message: 'Please enter a valid email address',
-      },
-      password: {
-        required: 'Password is required',
-        messages: {
-          eight_symbols: 'Password must contain minimum 8 symbols',
-          one_letter: 'Password must contain at least one letter',
-          one_digit: 'Password must contain one digit',
-          one_special: 'Password must contain one special character',
-        },
-      },
-    },
-  },
-};
+import LocaleProvider from '@/context/locales';
 
 jest.mock('../lib/firebase/firebase', () => ({
   logInWithEmailAndPassword: jest.fn(),
 }));
 
-jest.mock('../context/locales', () => ({
-  ...jest.requireActual('../context/locales'),
-  useLocaleContext: jest.fn(() => mockLocaleContext),
-}));
-
 describe('SignInForm component', () => {
   test('renders SignInForm components', () => {
-    render(<SignInForm />);
+    render(
+      <LocaleProvider>
+        <SignInForm />
+      </LocaleProvider>
+    );
 
     const emailField = screen.getByPlaceholderText('Email');
     const passwordField = screen.getByPlaceholderText('Password');
@@ -57,7 +27,11 @@ describe('SignInForm component', () => {
   });
 
   test('submits the form with valid data', async () => {
-    render(<SignInForm />);
+    render(
+      <LocaleProvider>
+        <SignInForm />
+      </LocaleProvider>
+    );
 
     const emailField = screen.getByPlaceholderText('Email');
     const passwordField = screen.getByPlaceholderText('Password');
@@ -85,7 +59,11 @@ describe('SignInForm component', () => {
   });
 
   test('displays error messages for invalid data', async () => {
-    render(<SignInForm />);
+    render(
+      <LocaleProvider>
+        <SignInForm />
+      </LocaleProvider>
+    );
 
     const emailField = screen.getByPlaceholderText('Email');
     const passwordField = screen.getByPlaceholderText('Password');
