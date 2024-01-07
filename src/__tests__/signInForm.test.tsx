@@ -1,65 +1,111 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { logInWithEmailAndPassword } from '../lib/firebase/firebase';
 import SignInForm from '@/components/SignInForm';
-import LocaleProvider from '@/context/locales';
+import { logInWithEmailAndPassword } from '@/lib/firebase/firebase';
+
+const mockLocaleContext = {
+  localeData: {
+    sign_in_page: {
+      title: 'Sign In',
+      email: 'Email',
+      password: 'Password',
+      button: 'Sign In',
+      auth_link: {
+        text: "Don't have an account?",
+        label: 'Sign Up',
+      },
+    },
+    validation: {
+      email: {
+        required: 'Email is required',
+        message: 'Please enter a valid email address',
+      },
+      password: {
+        required: 'Password is required',
+        messages: {
+          eight_symbols: 'Password must contain minimum 8 symbols',
+          one_letter: 'Password must contain at least one letter',
+          one_digit: 'Password must contain one digit',
+          one_special: 'Password must contain one special character',
+        },
+      },
+    },
+  },
+};
 
 jest.mock('../lib/firebase/firebase', () => ({
   logInWithEmailAndPassword: jest.fn(),
 }));
 
-describe('SignInForm', () => {
-  it('renders correctly', () => {
-    render(
-      <LocaleProvider>
-        <SignInForm />
-      </LocaleProvider>
-    );
-    const signInElements = screen.getAllByText(/sign in/i);
-    expect(signInElements.length).toBeGreaterThan(1);
-    signInElements.forEach((element) => {
-      expect(element).toBeInTheDocument();
-    });
+jest.mock('../context/locales', () => ({
+  ...jest.requireActual('../context/locales'),
+  useLocaleContext: jest.fn(() => mockLocaleContext),
+}));
+
+describe('SignInForm component', () => {
+  test('renders SignInForm components', () => {
+    render(<SignInForm />);
+
+    const emailField = screen.getByPlaceholderText('Email');
+    const passwordField = screen.getByPlaceholderText('Password');
+    const buttonElement = screen.getByRole('button');
+    const authLink = screen.getByText("Don't have an account?");
+
+    expect(emailField).toBeInTheDocument();
+    expect(passwordField).toBeInTheDocument();
+    expect(buttonElement).toBeInTheDocument();
+    expect(authLink).toBeInTheDocument();
   });
 
-  it('submits the form with valid data', async () => {
-    render(
-      <LocaleProvider>
-        <SignInForm />
-      </LocaleProvider>
+  test('submits the form with valid data', async () => {
+    render(<SignInForm />);
+
+    const emailField = screen.getByPlaceholderText('Email');
+    const passwordField = screen.getByPlaceholderText('Password');
+    const buttonElement = screen.getByRole('button');
+
+    fireEvent.change(emailField, {
+      target: { value: 'test123@example.com' },
+    });
+    fireEvent.change(passwordField, {
+      target: { value: 'Password1!' },
+    });
+
+    fireEvent.submit(buttonElement);
+
+    await waitFor(() =>
+      expect(logInWithEmailAndPassword).toHaveBeenCalledTimes(1)
     );
 
-    fireEvent.change(screen.getByPlaceholderText('Email'), {
-      target: { value: 'test@example.com' },
-    });
-    fireEvent.change(screen.getByPlaceholderText('Password'), {
-      target: { value: 'password123!' },
-    });
-
-    const signInForm = screen.getByTestId('form');
-
-    fireEvent.submit(signInForm);
-
-    await waitFor(() => {
+    await waitFor(() =>
       expect(logInWithEmailAndPassword).toHaveBeenCalledWith(
-        'test@example.com',
-        'password123!'
-      );
-    });
+        'test123@example.com',
+        'Password1!'
+      )
+    );
   });
 
-  it('disables submit button when form is not dirty or not valid', () => {
-    render(
-      <LocaleProvider>
-        <SignInForm />
-      </LocaleProvider>
-    );
+  test('displays error messages for invalid data', async () => {
+    render(<SignInForm />);
 
-    expect(screen.getByRole('button')).toBeDisabled();
+    const emailField = screen.getByPlaceholderText('Email');
+    const passwordField = screen.getByPlaceholderText('Password');
+    const buttonElement = screen.getByRole('button');
 
-    fireEvent.change(screen.getByLabelText(/email/i), {
-      target: { value: 'test@example.com' },
+    fireEvent.change(emailField, {
+      target: { value: '' },
+    });
+    fireEvent.change(passwordField, {
+      target: { value: '' },
     });
 
-    expect(screen.getByRole('button')).toBeDisabled();
+    fireEvent.submit(buttonElement);
+
+    const emailErrorMessage = await screen.findByText('Email is required');
+    const passwordErrorMessage = await screen.findByText(
+      'Password is required'
+    );
+
+    expect(emailErrorMessage).toBeInTheDocument();
+    expect(passwordErrorMessage).toBeInTheDocument();
   });
 });
